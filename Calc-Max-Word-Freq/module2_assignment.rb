@@ -27,7 +27,7 @@ class LineAnalyzer
     #* create & fill hash with word and the frequency that it appears
   	word_frequencies = Hash.new(0)
  	 	
- 	 	words.each	do |word|
+ 	 	words.each do |word|
   		word_frequencies[word.downcase] += 1
   	end
 
@@ -35,8 +35,9 @@ class LineAnalyzer
   	word_frequencies.each do |word, count|
   		if count > @highest_wf_count
   			@highest_wf_count = count
+  		end
   	end
-  
+ 
   	#* identify the words that were used the maximum number of times and
     #  store that in the highest_wf_words attribute.
     @highest_wf_words = []
@@ -47,7 +48,7 @@ class LineAnalyzer
   	end
   end
 end
-end
+
 #  Implement a class called Solution. 
 class Solution
 
@@ -56,20 +57,46 @@ class Solution
   #* highest_count_across_lines - a number with the maximum value for highest_wf_words attribute in the analyzers array.
   #* highest_count_words_across_lines - a filtered array of LineAnalyzer objects with the highest_wf_words attribute 
   #  equal to the highest_count_across_lines determined previously.
+  attr_reader :analyzers, :highest_count_across_lines, :highest_count_words_across_lines
 
   # Implement the following methods in the Solution class.
   #* analyze_file() - processes 'test.txt' intro an array of LineAnalyzers and stores them in analyzers.
   #* calculate_line_with_highest_frequency() - determines the highest_count_across_lines and 
-  #  highest_count_words_across_lines attribute values
+  #                                            highest_count_words_across_lines attribute values
+
   #* print_highest_word_frequency_across_lines() - prints the values of LineAnalyzer objects in 
   #  highest_count_words_across_lines in the specified format
   
   # Implement the analyze_file() method() to:
   #* Read the 'test.txt' file in lines 
   #* Create an array of LineAnalyzers for each line in the file
-  
+  def analyze_file
+  	lines = []
+  	File.open("test.txt") do |file|
+  		lines = file.readlines
+  	end
+  	puts lines
+  	puts "*********************************************"
+  	puts lines[0]
+  	puts lines[1]
+  	puts lines[2]
+  	puts "*********************************************"
+  # LineAnalyzer.new("test_name",2)
+  # 	lines.each	do |line|
+  # 		line.index
+  # 	end
+  	# line_number = 1
+  	analyzers = []
+  	index = 0
 
-  LineAnalyzer.new("test_name",2)
+  	while index < lines.length
+ puts "where is error ************"
+  		analyzers = LineAnalyzer.new(lines[index], index + 1)
+			index += 1  		
+  	end
+
+  end
+
   
 
 

@@ -2,23 +2,12 @@
 
 #Implement a class called LineAnalyzer.
 class LineAnalyzer
-  #Implement read-only attributes
+	#Implement read-only attributes
+  #* highest_wf_count - a number with maximum number of occurrences for a single word (calculated)
+	#* highest_wf_words - an array of words with the maximum number of occurrences (calculated)
+  #* content - the string analyzed (provided)
+  #* line_number - the line number analyzed (provided)
   attr_reader :highest_wf_count, :highest_wf_words, :content, :line_number
-  
-  def highest_wf_count  #* highest_wf_count - a number with maximum number of occurrences for a single word (calculated)
-    99
-  end
-  def highest_wf_words  #* highest_wf_words - an array of words with the maximum number of occurrences (calculated)
-
-  end
-
-  def content  #* content - the string analyzed (provided)
-    @content
-  end
-
-  def line_number  #* line_number - the line number analyzed (provided)
-    @line_number
-  end
 
   #Add the following methods in the LineAnalyzer class.
   #* initialize() - taking a line of text (content) and a line number
@@ -32,19 +21,33 @@ class LineAnalyzer
   #Implement the calculate_word_frequency() method to:
   def calculate_word_frequency
     #* calculate the maximum number of times a single word appears within
-    @content.split
+    #  provided content and store that in the highest_wf_count attribute.
+  	words = @content.chomp.split
 
+    #* create & fill hash with word and the frequency that it appears
+  	word_frequencies = Hash.new(0)
+ 	 	
+ 	 	words.each	do |word|
+  		word_frequencies[word.downcase] += 1
+  	end
 
-  #  provided content and store that in the highest_wf_count attribute.
+  	@highest_wf_count = 0
+  	word_frequencies.each do |word, count|
+  		if count > @highest_wf_count
+  			@highest_wf_count = count
+  	end
   
-  #* identify the words that were used the maximum number of times and
-  
-  #  store that in the highest_wf_words attribute.
-    
+  	#* identify the words that were used the maximum number of times and
+    #  store that in the highest_wf_words attribute.
+    @highest_wf_words = []
+		word_frequencies.each do |word, count|
+  		if count == @highest_wf_count
+  			@highest_wf_words << word
+  		end
+  	end
   end
-
 end
-
+end
 #  Implement a class called Solution. 
 class Solution
 
@@ -64,6 +67,11 @@ class Solution
   # Implement the analyze_file() method() to:
   #* Read the 'test.txt' file in lines 
   #* Create an array of LineAnalyzers for each line in the file
+  
+
+  LineAnalyzer.new("test_name",2)
+  
+
 
   # Implement the calculate_line_with_highest_frequency() method to:
   #* calculate the maximum value for highest_wf_count contained by the LineAnalyzer objects in analyzers array
